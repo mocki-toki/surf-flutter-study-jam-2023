@@ -11,11 +11,9 @@ import 'package:surf_flutter_study_jam_2023/presentation/viewmodel/ticket_storag
 class TicketStorageViewModel extends Cubit<TicketStorageState> {
   TicketStorageViewModel(this._ticketRepository) : super(const TicketStorageState.empty()) {
     _ticketRepository.ticketListStream.listen((event) {
-      if (event.isEmpty) {
-        emit(const TicketStorageState.empty());
-      } else {
-        emit(TicketStorageState.loaded(items: event));
-      }
+      if (event.isEmpty) emit(const TicketStorageState.empty());
+      emit(const TicketStorageState.empty());
+      emit(TicketStorageState.loaded(items: event));
     });
   }
 
