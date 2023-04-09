@@ -1,21 +1,18 @@
+import 'package:dino_flutter/dino_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:surf_flutter_study_jam_2023/features/ticket_storage/ticket_storage_page.dart';
+import 'package:surf_flutter_study_jam_2023/presentation/application.dart';
+import 'package:dino/dino.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
+  final services = ServiceCollection();
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final scope = services.buildRootScope();
+  await scope.initialize();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const TicketStoragePage(),
-    );
-  }
+  runApp(
+    DinoProvider(
+      serviceProvider: scope.serviceProvider,
+      child: const Application(),
+    ),
+  );
 }

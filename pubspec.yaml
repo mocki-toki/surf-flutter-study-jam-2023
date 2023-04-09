@@ -7,16 +7,21 @@ environment:
   sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
+  # Frameworks
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  # DI
+  dino: ^1.0.0-pre.1
+  dino_flutter: ^1.0.0-pre.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
+  # Lints
   flutter_lints: ^2.0.0
+
+  # Generators
+  build_runner: ^2.3.3
+  dino_generator: ^1.0.0-pre.4
 
 flutter:
   uses-material-design: true
