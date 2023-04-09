@@ -24,8 +24,10 @@ dependencies:
   freezed_annotation: ^2.2.0
   fpdart: ^0.5.0
 
-  # Network
-  dio: ^5.1.1
+  # Downloader
+  flutter_download_manager: ^0.5.5
+  path_provider: ^2.0.14
+  path: ^1.8.2
 
 dev_dependencies:
   # Lints
@@ -37,4 +39,5 @@ dev_dependencies:
   dino_generator: ^1.0.0-pre.4
 
 flutter:
+  generate: true
   uses-material-design: true

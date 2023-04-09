@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FileModel {
   Directory get path => throw _privateConstructorUsedError;
+  Uri get uri => throw _privateConstructorUsedError;
   DownloadFileState get downloadState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $FileModelCopyWith<$Res> {
   factory $FileModelCopyWith(FileModel value, $Res Function(FileModel) then) =
       _$FileModelCopyWithImpl<$Res, FileModel>;
   @useResult
-  $Res call({Directory path, DownloadFileState downloadState});
+  $Res call({Directory path, Uri uri, DownloadFileState downloadState});
 
   $DownloadFileStateCopyWith<$Res> get downloadState;
 }
@@ -48,6 +49,7 @@ class _$FileModelCopyWithImpl<$Res, $Val extends FileModel>
   @override
   $Res call({
     Object? path = null,
+    Object? uri = null,
     Object? downloadState = null,
   }) {
     return _then(_value.copyWith(
@@ -55,6 +57,10 @@ class _$FileModelCopyWithImpl<$Res, $Val extends FileModel>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as Directory,
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as Uri,
       downloadState: null == downloadState
           ? _value.downloadState
           : downloadState // ignore: cast_nullable_to_non_nullable
@@ -78,7 +84,7 @@ abstract class _$$_FileModelCopyWith<$Res> implements $FileModelCopyWith<$Res> {
       __$$_FileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Directory path, DownloadFileState downloadState});
+  $Res call({Directory path, Uri uri, DownloadFileState downloadState});
 
   @override
   $DownloadFileStateCopyWith<$Res> get downloadState;
@@ -96,6 +102,7 @@ class __$$_FileModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? path = null,
+    Object? uri = null,
     Object? downloadState = null,
   }) {
     return _then(_$_FileModel(
@@ -103,6 +110,10 @@ class __$$_FileModelCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as Directory,
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as Uri,
       downloadState: null == downloadState
           ? _value.downloadState
           : downloadState // ignore: cast_nullable_to_non_nullable
@@ -114,16 +125,19 @@ class __$$_FileModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FileModel implements _FileModel {
-  const _$_FileModel({required this.path, required this.downloadState});
+  const _$_FileModel(
+      {required this.path, required this.uri, required this.downloadState});
 
   @override
   final Directory path;
+  @override
+  final Uri uri;
   @override
   final DownloadFileState downloadState;
 
   @override
   String toString() {
-    return 'FileModel(path: $path, downloadState: $downloadState)';
+    return 'FileModel(path: $path, uri: $uri, downloadState: $downloadState)';
   }
 
   @override
@@ -132,12 +146,13 @@ class _$_FileModel implements _FileModel {
         (other.runtimeType == runtimeType &&
             other is _$_FileModel &&
             (identical(other.path, path) || other.path == path) &&
+            (identical(other.uri, uri) || other.uri == uri) &&
             (identical(other.downloadState, downloadState) ||
                 other.downloadState == downloadState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, path, downloadState);
+  int get hashCode => Object.hash(runtimeType, path, uri, downloadState);
 
   @JsonKey(ignore: true)
   @override
@@ -149,10 +164,13 @@ class _$_FileModel implements _FileModel {
 abstract class _FileModel implements FileModel {
   const factory _FileModel(
       {required final Directory path,
+      required final Uri uri,
       required final DownloadFileState downloadState}) = _$_FileModel;
 
   @override
   Directory get path;
+  @override
+  Uri get uri;
   @override
   DownloadFileState get downloadState;
   @override
@@ -165,51 +183,57 @@ abstract class _FileModel implements FileModel {
 mixin _$DownloadFileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() waiting,
-    required TResult Function(double downloadPosition) downloading,
-    required TResult Function() completed,
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
     required TResult Function() failure,
+    required TResult Function() completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? waiting,
-    TResult? Function(double downloadPosition)? downloading,
-    TResult? Function()? completed,
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
     TResult? Function()? failure,
+    TResult? Function()? completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? waiting,
-    TResult Function(double downloadPosition)? downloading,
-    TResult Function()? completed,
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
     TResult Function()? failure,
+    TResult Function()? completed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DownloadFileStateWaiting value) waiting,
+    required TResult Function(_DownloadFileStateWaiting value) queued,
     required TResult Function(_DownloadFileStateDownloading value) downloading,
-    required TResult Function(_DownloadFileStateCompleted value) completed,
+    required TResult Function(_DownloadFileStatePaused value) paused,
     required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DownloadFileStateWaiting value)? waiting,
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
     TResult? Function(_DownloadFileStateDownloading value)? downloading,
-    TResult? Function(_DownloadFileStateCompleted value)? completed,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
     TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DownloadFileStateWaiting value)? waiting,
+    TResult Function(_DownloadFileStateWaiting value)? queued,
     TResult Function(_DownloadFileStateDownloading value)? downloading,
-    TResult Function(_DownloadFileStateCompleted value)? completed,
+    TResult Function(_DownloadFileStatePaused value)? paused,
     TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -257,7 +281,7 @@ class _$_DownloadFileStateWaiting implements _DownloadFileStateWaiting {
 
   @override
   String toString() {
-    return 'DownloadFileState.waiting()';
+    return 'DownloadFileState.queued()';
   }
 
   @override
@@ -273,36 +297,39 @@ class _$_DownloadFileStateWaiting implements _DownloadFileStateWaiting {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() waiting,
-    required TResult Function(double downloadPosition) downloading,
-    required TResult Function() completed,
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
     required TResult Function() failure,
+    required TResult Function() completed,
   }) {
-    return waiting();
+    return queued();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? waiting,
-    TResult? Function(double downloadPosition)? downloading,
-    TResult? Function()? completed,
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
     TResult? Function()? failure,
+    TResult? Function()? completed,
   }) {
-    return waiting?.call();
+    return queued?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? waiting,
-    TResult Function(double downloadPosition)? downloading,
-    TResult Function()? completed,
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
     TResult Function()? failure,
+    TResult Function()? completed,
     required TResult orElse(),
   }) {
-    if (waiting != null) {
-      return waiting();
+    if (queued != null) {
+      return queued();
     }
     return orElse();
   }
@@ -310,36 +337,39 @@ class _$_DownloadFileStateWaiting implements _DownloadFileStateWaiting {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DownloadFileStateWaiting value) waiting,
+    required TResult Function(_DownloadFileStateWaiting value) queued,
     required TResult Function(_DownloadFileStateDownloading value) downloading,
-    required TResult Function(_DownloadFileStateCompleted value) completed,
+    required TResult Function(_DownloadFileStatePaused value) paused,
     required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
   }) {
-    return waiting(this);
+    return queued(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DownloadFileStateWaiting value)? waiting,
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
     TResult? Function(_DownloadFileStateDownloading value)? downloading,
-    TResult? Function(_DownloadFileStateCompleted value)? completed,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
     TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
   }) {
-    return waiting?.call(this);
+    return queued?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DownloadFileStateWaiting value)? waiting,
+    TResult Function(_DownloadFileStateWaiting value)? queued,
     TResult Function(_DownloadFileStateDownloading value)? downloading,
-    TResult Function(_DownloadFileStateCompleted value)? completed,
+    TResult Function(_DownloadFileStatePaused value)? paused,
     TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
     required TResult orElse(),
   }) {
-    if (waiting != null) {
-      return waiting(this);
+    if (queued != null) {
+      return queued(this);
     }
     return orElse();
   }
@@ -356,7 +386,7 @@ abstract class _$$_DownloadFileStateDownloadingCopyWith<$Res> {
           $Res Function(_$_DownloadFileStateDownloading) then) =
       __$$_DownloadFileStateDownloadingCopyWithImpl<$Res>;
   @useResult
-  $Res call({double downloadPosition});
+  $Res call({double progress});
 }
 
 /// @nodoc
@@ -372,12 +402,12 @@ class __$$_DownloadFileStateDownloadingCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? downloadPosition = null,
+    Object? progress = null,
   }) {
     return _then(_$_DownloadFileStateDownloading(
-      downloadPosition: null == downloadPosition
-          ? _value.downloadPosition
-          : downloadPosition // ignore: cast_nullable_to_non_nullable
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -386,14 +416,14 @@ class __$$_DownloadFileStateDownloadingCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
-  const _$_DownloadFileStateDownloading({required this.downloadPosition});
+  const _$_DownloadFileStateDownloading({required this.progress});
 
   @override
-  final double downloadPosition;
+  final double progress;
 
   @override
   String toString() {
-    return 'DownloadFileState.downloading(downloadPosition: $downloadPosition)';
+    return 'DownloadFileState.downloading(progress: $progress)';
   }
 
   @override
@@ -401,12 +431,12 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DownloadFileStateDownloading &&
-            (identical(other.downloadPosition, downloadPosition) ||
-                other.downloadPosition == downloadPosition));
+            (identical(other.progress, progress) ||
+                other.progress == progress));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, downloadPosition);
+  int get hashCode => Object.hash(runtimeType, progress);
 
   @JsonKey(ignore: true)
   @override
@@ -418,36 +448,39 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() waiting,
-    required TResult Function(double downloadPosition) downloading,
-    required TResult Function() completed,
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
     required TResult Function() failure,
+    required TResult Function() completed,
   }) {
-    return downloading(downloadPosition);
+    return downloading(progress);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? waiting,
-    TResult? Function(double downloadPosition)? downloading,
-    TResult? Function()? completed,
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
     TResult? Function()? failure,
+    TResult? Function()? completed,
   }) {
-    return downloading?.call(downloadPosition);
+    return downloading?.call(progress);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? waiting,
-    TResult Function(double downloadPosition)? downloading,
-    TResult Function()? completed,
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
     TResult Function()? failure,
+    TResult Function()? completed,
     required TResult orElse(),
   }) {
     if (downloading != null) {
-      return downloading(downloadPosition);
+      return downloading(progress);
     }
     return orElse();
   }
@@ -455,10 +488,11 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DownloadFileStateWaiting value) waiting,
+    required TResult Function(_DownloadFileStateWaiting value) queued,
     required TResult Function(_DownloadFileStateDownloading value) downloading,
-    required TResult Function(_DownloadFileStateCompleted value) completed,
+    required TResult Function(_DownloadFileStatePaused value) paused,
     required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
   }) {
     return downloading(this);
   }
@@ -466,10 +500,11 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DownloadFileStateWaiting value)? waiting,
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
     TResult? Function(_DownloadFileStateDownloading value)? downloading,
-    TResult? Function(_DownloadFileStateCompleted value)? completed,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
     TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
   }) {
     return downloading?.call(this);
   }
@@ -477,10 +512,11 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DownloadFileStateWaiting value)? waiting,
+    TResult Function(_DownloadFileStateWaiting value)? queued,
     TResult Function(_DownloadFileStateDownloading value)? downloading,
-    TResult Function(_DownloadFileStateCompleted value)? completed,
+    TResult Function(_DownloadFileStatePaused value)? paused,
     TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
     required TResult orElse(),
   }) {
     if (downloading != null) {
@@ -492,13 +528,289 @@ class _$_DownloadFileStateDownloading implements _DownloadFileStateDownloading {
 
 abstract class _DownloadFileStateDownloading implements DownloadFileState {
   const factory _DownloadFileStateDownloading(
-          {required final double downloadPosition}) =
-      _$_DownloadFileStateDownloading;
+      {required final double progress}) = _$_DownloadFileStateDownloading;
 
-  double get downloadPosition;
+  double get progress;
   @JsonKey(ignore: true)
   _$$_DownloadFileStateDownloadingCopyWith<_$_DownloadFileStateDownloading>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DownloadFileStatePausedCopyWith<$Res> {
+  factory _$$_DownloadFileStatePausedCopyWith(_$_DownloadFileStatePaused value,
+          $Res Function(_$_DownloadFileStatePaused) then) =
+      __$$_DownloadFileStatePausedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double progress});
+}
+
+/// @nodoc
+class __$$_DownloadFileStatePausedCopyWithImpl<$Res>
+    extends _$DownloadFileStateCopyWithImpl<$Res, _$_DownloadFileStatePaused>
+    implements _$$_DownloadFileStatePausedCopyWith<$Res> {
+  __$$_DownloadFileStatePausedCopyWithImpl(_$_DownloadFileStatePaused _value,
+      $Res Function(_$_DownloadFileStatePaused) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? progress = null,
+  }) {
+    return _then(_$_DownloadFileStatePaused(
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DownloadFileStatePaused implements _DownloadFileStatePaused {
+  const _$_DownloadFileStatePaused({required this.progress});
+
+  @override
+  final double progress;
+
+  @override
+  String toString() {
+    return 'DownloadFileState.paused(progress: $progress)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DownloadFileStatePaused &&
+            (identical(other.progress, progress) ||
+                other.progress == progress));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, progress);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DownloadFileStatePausedCopyWith<_$_DownloadFileStatePaused>
+      get copyWith =>
+          __$$_DownloadFileStatePausedCopyWithImpl<_$_DownloadFileStatePaused>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
+    required TResult Function() failure,
+    required TResult Function() completed,
+  }) {
+    return paused(progress);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
+    TResult? Function()? failure,
+    TResult? Function()? completed,
+  }) {
+    return paused?.call(progress);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
+    TResult Function()? failure,
+    TResult Function()? completed,
+    required TResult orElse(),
+  }) {
+    if (paused != null) {
+      return paused(progress);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DownloadFileStateWaiting value) queued,
+    required TResult Function(_DownloadFileStateDownloading value) downloading,
+    required TResult Function(_DownloadFileStatePaused value) paused,
+    required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
+  }) {
+    return paused(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
+    TResult? Function(_DownloadFileStateDownloading value)? downloading,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
+    TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
+  }) {
+    return paused?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DownloadFileStateWaiting value)? queued,
+    TResult Function(_DownloadFileStateDownloading value)? downloading,
+    TResult Function(_DownloadFileStatePaused value)? paused,
+    TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
+    required TResult orElse(),
+  }) {
+    if (paused != null) {
+      return paused(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DownloadFileStatePaused implements DownloadFileState {
+  const factory _DownloadFileStatePaused({required final double progress}) =
+      _$_DownloadFileStatePaused;
+
+  double get progress;
+  @JsonKey(ignore: true)
+  _$$_DownloadFileStatePausedCopyWith<_$_DownloadFileStatePaused>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DownloadFileStateFailureCopyWith<$Res> {
+  factory _$$_DownloadFileStateFailureCopyWith(
+          _$_DownloadFileStateFailure value,
+          $Res Function(_$_DownloadFileStateFailure) then) =
+      __$$_DownloadFileStateFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_DownloadFileStateFailureCopyWithImpl<$Res>
+    extends _$DownloadFileStateCopyWithImpl<$Res, _$_DownloadFileStateFailure>
+    implements _$$_DownloadFileStateFailureCopyWith<$Res> {
+  __$$_DownloadFileStateFailureCopyWithImpl(_$_DownloadFileStateFailure _value,
+      $Res Function(_$_DownloadFileStateFailure) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_DownloadFileStateFailure implements _DownloadFileStateFailure {
+  const _$_DownloadFileStateFailure();
+
+  @override
+  String toString() {
+    return 'DownloadFileState.failure()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DownloadFileStateFailure);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
+    required TResult Function() failure,
+    required TResult Function() completed,
+  }) {
+    return failure();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
+    TResult? Function()? failure,
+    TResult? Function()? completed,
+  }) {
+    return failure?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
+    TResult Function()? failure,
+    TResult Function()? completed,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DownloadFileStateWaiting value) queued,
+    required TResult Function(_DownloadFileStateDownloading value) downloading,
+    required TResult Function(_DownloadFileStatePaused value) paused,
+    required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
+  }) {
+    return failure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
+    TResult? Function(_DownloadFileStateDownloading value)? downloading,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
+    TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
+  }) {
+    return failure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DownloadFileStateWaiting value)? queued,
+    TResult Function(_DownloadFileStateDownloading value)? downloading,
+    TResult Function(_DownloadFileStatePaused value)? paused,
+    TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DownloadFileStateFailure implements DownloadFileState {
+  const factory _DownloadFileStateFailure() = _$_DownloadFileStateFailure;
 }
 
 /// @nodoc
@@ -542,10 +854,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() waiting,
-    required TResult Function(double downloadPosition) downloading,
-    required TResult Function() completed,
+    required TResult Function() queued,
+    required TResult Function(double progress) downloading,
+    required TResult Function(double progress) paused,
     required TResult Function() failure,
+    required TResult Function() completed,
   }) {
     return completed();
   }
@@ -553,10 +866,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? waiting,
-    TResult? Function(double downloadPosition)? downloading,
-    TResult? Function()? completed,
+    TResult? Function()? queued,
+    TResult? Function(double progress)? downloading,
+    TResult? Function(double progress)? paused,
     TResult? Function()? failure,
+    TResult? Function()? completed,
   }) {
     return completed?.call();
   }
@@ -564,10 +878,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? waiting,
-    TResult Function(double downloadPosition)? downloading,
-    TResult Function()? completed,
+    TResult Function()? queued,
+    TResult Function(double progress)? downloading,
+    TResult Function(double progress)? paused,
     TResult Function()? failure,
+    TResult Function()? completed,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -579,10 +894,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DownloadFileStateWaiting value) waiting,
+    required TResult Function(_DownloadFileStateWaiting value) queued,
     required TResult Function(_DownloadFileStateDownloading value) downloading,
-    required TResult Function(_DownloadFileStateCompleted value) completed,
+    required TResult Function(_DownloadFileStatePaused value) paused,
     required TResult Function(_DownloadFileStateFailure value) failure,
+    required TResult Function(_DownloadFileStateCompleted value) completed,
   }) {
     return completed(this);
   }
@@ -590,10 +906,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DownloadFileStateWaiting value)? waiting,
+    TResult? Function(_DownloadFileStateWaiting value)? queued,
     TResult? Function(_DownloadFileStateDownloading value)? downloading,
-    TResult? Function(_DownloadFileStateCompleted value)? completed,
+    TResult? Function(_DownloadFileStatePaused value)? paused,
     TResult? Function(_DownloadFileStateFailure value)? failure,
+    TResult? Function(_DownloadFileStateCompleted value)? completed,
   }) {
     return completed?.call(this);
   }
@@ -601,10 +918,11 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DownloadFileStateWaiting value)? waiting,
+    TResult Function(_DownloadFileStateWaiting value)? queued,
     TResult Function(_DownloadFileStateDownloading value)? downloading,
-    TResult Function(_DownloadFileStateCompleted value)? completed,
+    TResult Function(_DownloadFileStatePaused value)? paused,
     TResult Function(_DownloadFileStateFailure value)? failure,
+    TResult Function(_DownloadFileStateCompleted value)? completed,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -616,120 +934,4 @@ class _$_DownloadFileStateCompleted implements _DownloadFileStateCompleted {
 
 abstract class _DownloadFileStateCompleted implements DownloadFileState {
   const factory _DownloadFileStateCompleted() = _$_DownloadFileStateCompleted;
-}
-
-/// @nodoc
-abstract class _$$_DownloadFileStateFailureCopyWith<$Res> {
-  factory _$$_DownloadFileStateFailureCopyWith(
-          _$_DownloadFileStateFailure value,
-          $Res Function(_$_DownloadFileStateFailure) then) =
-      __$$_DownloadFileStateFailureCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_DownloadFileStateFailureCopyWithImpl<$Res>
-    extends _$DownloadFileStateCopyWithImpl<$Res, _$_DownloadFileStateFailure>
-    implements _$$_DownloadFileStateFailureCopyWith<$Res> {
-  __$$_DownloadFileStateFailureCopyWithImpl(_$_DownloadFileStateFailure _value,
-      $Res Function(_$_DownloadFileStateFailure) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_DownloadFileStateFailure implements _DownloadFileStateFailure {
-  const _$_DownloadFileStateFailure();
-
-  @override
-  String toString() {
-    return 'DownloadFileState.failure()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_DownloadFileStateFailure);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() waiting,
-    required TResult Function(double downloadPosition) downloading,
-    required TResult Function() completed,
-    required TResult Function() failure,
-  }) {
-    return failure();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? waiting,
-    TResult? Function(double downloadPosition)? downloading,
-    TResult? Function()? completed,
-    TResult? Function()? failure,
-  }) {
-    return failure?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? waiting,
-    TResult Function(double downloadPosition)? downloading,
-    TResult Function()? completed,
-    TResult Function()? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_DownloadFileStateWaiting value) waiting,
-    required TResult Function(_DownloadFileStateDownloading value) downloading,
-    required TResult Function(_DownloadFileStateCompleted value) completed,
-    required TResult Function(_DownloadFileStateFailure value) failure,
-  }) {
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DownloadFileStateWaiting value)? waiting,
-    TResult? Function(_DownloadFileStateDownloading value)? downloading,
-    TResult? Function(_DownloadFileStateCompleted value)? completed,
-    TResult? Function(_DownloadFileStateFailure value)? failure,
-  }) {
-    return failure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DownloadFileStateWaiting value)? waiting,
-    TResult Function(_DownloadFileStateDownloading value)? downloading,
-    TResult Function(_DownloadFileStateCompleted value)? completed,
-    TResult Function(_DownloadFileStateFailure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _DownloadFileStateFailure implements DownloadFileState {
-  const factory _DownloadFileStateFailure() = _$_DownloadFileStateFailure;
 }
