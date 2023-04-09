@@ -1,3 +1,16 @@
 {
-  "appName": "Ticket Storage"
+  "appName": "Ticket Storage",
+  "ticketStorageEmpty": "Nothing",
+  "ticketStorageLoading": "Loading..",
+  "ticketStorageFailure": "Fatal Error",
+  "addTicket": "Add Ticket",
+  "enterLinkToPdfFile": "Enter link to PDF file..",
+  "download": "Download",
+  "pleaseEnterText": "Please enter text",
+  "invalidFormat": "Invalid format",
+  "pause": "Paused",
+  "downloading": "Downloading..",
+  "downloaded": "Downloaded. Tap to open",
+  "queue": "In queue",
+  "failure": "Downloading failure"
 }

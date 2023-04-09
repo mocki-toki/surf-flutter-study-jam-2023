@@ -26,49 +26,48 @@ class DownloadServiceImpl implements DownloadService, Disposable {
 
   @override
   Future<void> download(FileModel file) async {
+    if (_downloadedFiles.indexWhere((e) => e.uri == file.uri) != -1) throw Error();
     final task = await downloadManager.addDownload(file.uri.toString(), file.path.path);
 
-    task?.status.addListener(() {
-      _syncTasks(task, file);
-    });
-
-    task?.progress.addListener(() {
-      _syncTasks(task, file);
-    });
+    task?.status.addListener(() => _syncTasks(task, file));
+    task?.progress.addListener(() => _syncTasks(task, file));
+    downloadManager.pauseDownload(file.uri.toString());
   }
 
   void _syncTasks(DownloadTask task, FileModel file) {
-    if (!_downloadedFiles.contains(file)) _downloadedFiles.add(file);
-    var fileInQueue = _downloadedFiles[_downloadedFiles.indexOf(file)];
+    if (_downloadedFiles.indexWhere((e) => e.path == file.path) == -1) {
+      _downloadedFiles.add(file);
+    }
+    final index = _downloadedFiles.indexWhere((e) => e.path == file.path);
 
     switch (task.status.value) {
       case DownloadStatus.queued:
-        fileInQueue = fileInQueue.copyWith(
+        _downloadedFiles[index] = file.copyWith(
           downloadState: const DownloadFileState.queued(),
         );
         break;
       case DownloadStatus.downloading:
-        fileInQueue = fileInQueue.copyWith(
+        _downloadedFiles[index] = file.copyWith(
           downloadState: DownloadFileState.downloading(progress: task.progress.value),
         );
         break;
       case DownloadStatus.completed:
-        fileInQueue = fileInQueue.copyWith(
+        _downloadedFiles[index] = file.copyWith(
           downloadState: const DownloadFileState.completed(),
         );
         break;
       case DownloadStatus.failed:
-        fileInQueue = fileInQueue.copyWith(
+        _downloadedFiles[index] = file.copyWith(
           downloadState: const DownloadFileState.failure(),
         );
         break;
       case DownloadStatus.paused:
-        fileInQueue = fileInQueue.copyWith(
+        _downloadedFiles[index] = file.copyWith(
           downloadState: DownloadFileState.paused(progress: task.progress.value),
         );
         break;
       case DownloadStatus.canceled:
-        _downloadedFiles.remove(fileInQueue);
+        _downloadedFiles.remove(_downloadedFiles[index]);
         break;
     }
 
@@ -77,6 +76,16 @@ class DownloadServiceImpl implements DownloadService, Disposable {
 
   @override
   Future<void> pause(FileModel file) {
-    return downloadManager.pauseDownload(_downloadedFiles.firstWhere((e) => e == file).uri.toString());
+    return downloadManager.pauseDownload(_downloadedFiles.firstWhere((e) => e.path == file.path).uri.toString());
+  }
+
+  @override
+  Future<void> resume(FileModel file) {
+    return downloadManager.resumeDownload(_downloadedFiles.firstWhere((e) => e.path == file.path).uri.toString());
+  }
+
+  @override
+  Future<void> removeFromQueue(FileModel file) {
+    return downloadManager.removeDownload(_downloadedFiles.firstWhere((e) => e.path == file.path).uri.toString());
   }
 }

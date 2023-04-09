@@ -4,4 +4,6 @@ abstract class DownloadService {
   Stream<Iterable<FileModel>> get downloadQueryStream;
   Future<void> download(FileModel file);
   Future<void> pause(FileModel file);
+  Future<void> resume(FileModel file);
+  Future<void> removeFromQueue(FileModel file);
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
+import 'package:path/path.dart';
 import 'package:surf_flutter_study_jam_2023/domain/models/ticket_model.dart';
 import 'package:surf_flutter_study_jam_2023/domain/services/download_service.dart';
 
@@ -20,20 +21,15 @@ class TicketRepositoryImpl implements TicketRepository {
   @override
   Stream<UnmodifiableListView<TicketModel>> get ticketListStream {
     return _downloadService.downloadQueryStream.map((list) {
-      return UnmodifiableListView(list.map((file) => TicketModel(file: file, name: '')));
+      return UnmodifiableListView(list.map((file) => TicketModel(file: file, name: basename('${file.uri}'))));
     });
   }
 
   @override
-  Future<Either<Error, UnmodifiableListView<TicketModel>>> downloadTickets(
-    UnmodifiableListView<TicketModel> tickets,
-  ) async {
+  Future<Either<Error, TicketModel>> downloadTicket(TicketModel ticket) async {
     try {
-      await Future.forEach(tickets, (element) {
-        return _downloadService.download(element.file);
-      });
-
-      return Right(tickets);
+      await _downloadService.download(ticket.file);
+      return Right(ticket);
     } catch (_) {
       return Left(Error());
     }
@@ -45,8 +41,8 @@ class TicketRepositoryImpl implements TicketRepository {
   ) async {
     try {
       await Future.forEach(tickets, (element) async {
-        await _downloadService.pause(element.file);
-        return File(element.file.path.path).delete();
+        await _downloadService.removeFromQueue(element.file);
+        return File('${element.file.path.path}/${element.name}').delete();
       });
 
       return Right(tickets);
@@ -62,6 +58,21 @@ class TicketRepositoryImpl implements TicketRepository {
     try {
       await Future.forEach(tickets, (element) {
         return _downloadService.pause(element.file);
+      });
+
+      return Right(tickets);
+    } catch (_) {
+      return Left(Error());
+    }
+  }
+
+  @override
+  Future<Either<Error, UnmodifiableListView<TicketModel>>> resumeDownloadTickets(
+    UnmodifiableListView<TicketModel> tickets,
+  ) async {
+    try {
+      await Future.forEach(tickets, (element) {
+        return _downloadService.resume(element.file);
       });
 
       return Right(tickets);

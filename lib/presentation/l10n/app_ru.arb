@@ -1,3 +1,16 @@
 {
-  "appName": "Хранение билетов"
+  "appName": "Хранение билетов",
+  "ticketStorageEmpty": "Здесь пока ничего нет",
+  "ticketStorageLoading": "Загружаем список..",
+  "ticketStorageFailure": "Ошибка",
+  "addTicket": "Добавить билет",
+  "enterLinkToPdfFile": "Введите ссылку до PDF файла..",
+  "download": "Загрузить",
+  "pleaseEnterText": "Введите текст",
+  "invalidFormat": "Неверный формат",
+  "pause": "Приостановлено",
+  "downloading": "Загружается..",
+  "downloaded": "Загружено. Нажмите чтобы открыть",
+  "queue": "В очереди",
+  "failure": "Ошибка"
 }

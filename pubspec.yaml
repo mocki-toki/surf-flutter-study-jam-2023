@@ -29,6 +29,12 @@ dependencies:
   path_provider: ^2.0.14
   path: ^1.8.2
 
+  # ViewModel
+  flutter_bloc: ^8.1.2
+
+  # UI
+  open_filex: ^4.3.2
+
 dev_dependencies:
   # Lints
   flutter_lints: ^2.0.0
