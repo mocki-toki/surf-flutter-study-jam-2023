@@ -20,12 +20,20 @@ dependencies:
     sdk: flutter
   intl: any
 
+  # Model
+  freezed_annotation: ^2.2.0
+  fpdart: ^0.5.0
+
+  # Network
+  dio: ^5.1.1
+
 dev_dependencies:
   # Lints
   flutter_lints: ^2.0.0
 
   # Generators
   build_runner: ^2.3.3
+  freezed: ^2.3.2
   dino_generator: ^1.0.0-pre.4
 
 flutter:
