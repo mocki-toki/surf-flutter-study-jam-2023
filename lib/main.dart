@@ -1,14 +1,17 @@
 import 'package:dino_flutter/dino_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_download_manager/flutter_download_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surf_flutter_study_jam_2023/infrastructure/services/download_service_impl.dart';
 import 'package:surf_flutter_study_jam_2023/infrastructure/services/ticket_repository_impl.dart';
 import 'package:surf_flutter_study_jam_2023/presentation/application.dart';
 import 'package:dino/dino.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final services = ServiceCollection();
 
+  services.addInstance(await SharedPreferences.getInstance());
   services.addInstance(DownloadManager());
   services.addDownloadServiceImpl();
   services.addTicketRepositoryImpl();

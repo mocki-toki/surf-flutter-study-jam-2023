@@ -26,7 +26,6 @@ class _AddTicketDialogState extends State<AddTicketDialog> {
   @override
   void initState() {
     super.initState();
-
     getUriFromClipboard();
   }
 

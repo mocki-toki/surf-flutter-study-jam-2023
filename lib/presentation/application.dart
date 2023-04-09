@@ -21,7 +21,7 @@ class Application extends StatelessWidget {
         Locale('en'),
         Locale('ru'),
       ],
-      theme: lightTheme,
+      theme: theme,
       home: const TicketStoragePage(),
     );
   }

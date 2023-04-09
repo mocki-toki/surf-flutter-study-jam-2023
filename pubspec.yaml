@@ -32,6 +32,9 @@ dependencies:
   # ViewModel
   flutter_bloc: ^8.1.2
 
+  # Storage
+  shared_preferences: ^2.1.0
+
   # UI
   open_filex: ^4.3.2
 

@@ -15,6 +15,7 @@ extension TicketRepositoryImplFactory on ServiceCollection {
       lifetime,
       (provider) => TicketRepositoryImpl(
         provider.getRequired<DownloadService>(),
+        provider.getRequired<SharedPreferences>(),
       ),
       true,
     );
